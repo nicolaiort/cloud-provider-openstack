@@ -2106,12 +2106,6 @@ func (lbaas *LbaasV2) ensureLoadBalancerDeleted(ctx context.Context, clusterName
 		return err
 	}
 	if loadbalancer == nil {
-		klog.V(4).Info("Hit early return")
-		// Delete the Security Group. We're doing that even if `manage-security-groups` is disabled to make sure we don't
-		// orphan created SGs even if CPO got reconfigured.
-		if err := lbaas.ensureSecurityGroupDeleted(ctx, service); err != nil {
-			return err
-		}
 		return nil
 	}
 
